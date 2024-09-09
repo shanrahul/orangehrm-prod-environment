@@ -116,6 +116,3 @@ COPY ioncube/ioncube_loader_lin_7.4.so /usr/lib/php/20190902/ioncube_loader_lin_
 COPY php.ini /etc/php/7.4/apache2/php.ini
 COPY php.ini /etc/php/7.4/cli/php.ini
 
-#Start apache 
-CMD [ "/usr/sbin/apache2ctl" , "-D" , "FOREGROUND" ]
-
