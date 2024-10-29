@@ -1,5 +1,5 @@
 # OrangeHRM PROD Image - PHP 7.4
-[![Docker Automated](https://img.shields.io/docker/automated/orangehrm/orangehrm-environment-images.svg)](https://hub.docker.com/r/orangehrm/orangehrm-environment-images/) [![Docker Pulls](https://img.shields.io/docker/pulls/orangehrm/orangehrm-environment-images.svg)](https://hub.docker.com/r/orangehrm/orangehrm-environment-images/) [![Docker Status](https://img.shields.io/docker/build/orangehrm/orangehrm-environment-images.svg)](https://hub.docker.com/r/orangehrm/orangehrm-environment-images/) [![Build Status](https://travis-ci.org/orangehrm/orangehrm-prod-environment.svg?branch=php-7.2)](https://travis-ci.org/orangehrm/orangehrm-prod-environment)
+[![Docker Automated](https://img.shields.io/docker/automated/orangehrm/orangehrm-environment-images.svg)](https://hub.docker.com/r/orangehrm/orangehrm-environment-images/) [![Docker Pulls](https://img.shields.io/docker/pulls/orangehrm/orangehrm-environment-images.svg)](https://hub.docker.com/r/orangehrm/orangehrm-environment-images/) [![OrangeHRM PROD Image Build Workflow](https://github.com/shanrahul/orangehrm-prod-environment/actions/workflows/build-workflow.yml/badge.svg?branch=php-7.4-rhel-8)](https://github.com/shanrahul/orangehrm-prod-environment/actions/workflows/build-workflow.yml)
 
 ## Introduction
 
