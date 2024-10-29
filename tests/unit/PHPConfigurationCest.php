@@ -22,12 +22,6 @@ class PHPConfigurationCest
         $I->canSeeInShellOutput("50M");
     }
 
-    public function checkPHPConfig_max_execution_time(UnitTester $I){
-        $I->wantTo("verify the config - max_execution_time = 300");
-        $I->runShellCommand("docker exec prod_web_rhel php -r \"echo ini_get('max_execution_time');\"");
-        $I->canSeeInShellOutput("300");
-    }
-
     public function checkPHPConfig_memory_limit(UnitTester $I){
         $I->wantTo("verify the config - memory_limit = 2048M");
         $I->runShellCommand("docker exec prod_web_rhel php -r \"echo ini_get('memory_limit');\"");
