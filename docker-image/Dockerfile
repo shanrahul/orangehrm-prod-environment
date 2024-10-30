@@ -167,25 +167,6 @@ RUN subscription-manager unregister
 #Update Oslon Timezone Database
 RUN pecl install timezonedb
 
-##install QPDF
-
-#install the libraries
-RUN yum install -y libjpeg-devel \
-cmake
-
-#Download latest qpdf package and extract
-RUN cd ~ && \
-wget https://github.com/qpdf/qpdf/releases/download/v11.9.1/qpdf-11.9.1.tar.gz && \
-tar -xzvf qpdf-11.9.1.tar.gz
-
-#Install QPDF
-RUN cd ~/qpdf-11.9.1 && \
-cmake -S . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo
-
-RUN cd ~/qpdf-11.9.1 && cmake --build build && \
-cd build && \
-cmake --install
-
 # Enable services
 RUN systemctl enable httpd.service
 RUN systemctl enable memcached.service
