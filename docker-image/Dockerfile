@@ -179,7 +179,7 @@ wget https://github.com/qpdf/qpdf/releases/download/v11.9.1/qpdf-11.9.1.tar.gz &
 tar -xzvf qpdf-11.9.1.tar.gz
 
 #Install QPDF
-RUN cd qpdf-11.9.1 && \
+RUN cd ~/qpdf-11.9.1 && \
 cmake -S . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo && \
 cmake --build build && \
 cd build && \
