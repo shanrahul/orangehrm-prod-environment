@@ -13,130 +13,129 @@ class WebContainerCest
 
     public function checkContainerIsRunning(UnitTester $I){
         $I->wantTo("verify ubuntu container up and running");
-        $I->runShellCommand("docker inspect -f {{.State.Running}} prod_web");
+        $I->runShellCommand("docker inspect -f {{.State.Running}} prod_web_ubuntu");
         $I->seeInShellOutput("true");
     }
 
     public function checkSupervisorInstallation(UnitTester $I){
         $I->wantTo("verify supervisor is installed in the container");
 
-        $I->runShellCommand("docker exec prod_web rpm -qa | grep supervisor");
+        $I->runShellCommand("docker exec prod_web_ubuntu dpkg -l | grep supervisor");
         $I->seeInShellOutput('supervisor-3');
 
     }
 
     public function checkApacheInstallation(UnitTester $I){
         $I->wantTo("verify apache is installed in the container");
-        $I->runShellCommand("docker exec prod_web httpd -v");
+        $I->runShellCommand("docker exec prod_web_ubuntu apache2 -v");
         $I->seeInShellOutput('Server version: Apache/2.4.6');
     }
 
     public function checkImageMagick(UnitTester $I){
         $I->wantTo("verify imagemagick is installed in the container");
-        $I->runShellCommand("docker exec prod_web yum list installed | grep ImageMagick");
+        $I->runShellCommand("docker exec prod_web_ubuntu apt list installed | grep ImageMagick");
         $I->seeInShellOutput('ImageMagick.x86_64');
     }
     
     public function checkApacheServiceIsRunning(UnitTester $I){
         $I->wantTo("verify apache is up and running in the container");
         //$I->runShellCommand("ping -c 10 localhost");
-        $I->runShellCommand("docker exec prod_web service httpd status");
+        $I->runShellCommand("docker exec prod_web_ubuntu service apache2 status");
         $I->seeInShellOutput('active (running)');
     }
 
     public function checkCronInstallation(UnitTester $I){
         $I->wantTo("verify cron is installed in the container");
-        $I->runShellCommand("docker exec prod_web rpm -qa | grep cron");
+        $I->runShellCommand("docker exec prod_web_ubuntu dpkg -l | grep cron");
         $I->seeInShellOutput('cronie-1.4.11');
 
     }
 
     public function checkCronServiceIsRunning(UnitTester $I){
         $I->wantTo("verify cron is up and running in the container");
-        $I->runShellCommand("docker exec prod_web service crond status");
+        $I->runShellCommand("docker exec prod_web_ubuntu service crond status");
         $I->seeInShellOutput('active (running)');
     }
 
     public function checkMemcachedInstallation(UnitTester $I){
         $I->wantTo("verify memcache is installed in the container");
-        $I->runShellCommand("docker exec prod_web rpm -qa | grep memcached");
+        $I->runShellCommand("docker exec prod_web_ubuntu dpkg -l | grep memcached");
         $I->seeInShellOutput('memcached-1.4.15');
 
     }
 
     public function checkMemcacheServiceIsRunning(UnitTester $I){
         $I->wantTo("verify memcache is up and running in the container");
-        $I->runShellCommand("docker exec prod_web service memcached status");
+        $I->runShellCommand("docker exec prod_web_ubuntu service memcached status");
         $I->seeInShellOutput('active (running)');
     }
 
     public function checkMySQLClientInstallation(UnitTester $I){
         $I->wantTo("verify mysql-client is installed in the container");
-        $I->runShellCommand("docker exec prod_web rpm -qa | grep MariaDB-client");
+        $I->runShellCommand("docker exec prod_web_ubuntu dpkg -l | grep MariaDB-client");
         $I->seeInShellOutput('MariaDB-client');
 
     }
 
      public function checkOracleClientInstallation(UnitTester $I){
             $I->wantTo("verify oralce client is installed in the container");
-            $I->runShellCommand("docker exec prod_web sqlplus -v");
+            $I->runShellCommand("docker exec prod_web_ubuntu sqlplus -v");
             $I->seeInShellOutput('SQL*Plus: Release 11.2.0.2.0 Production');
      }
 
     public function checkLibreOfficeInstallation(UnitTester $I){
         $I->wantTo("verify LibreOffice is installed in the container");
-        $I->runShellCommand("docker exec prod_web libreoffice --version");
+        $I->runShellCommand("docker exec prod_web_ubuntu libreoffice --version");
         $I->seeInShellOutput('LibreOffice');
     }
 
-
   public function checkPopplerUtilInstallation(UnitTester $I){
         $I->wantTo("verify poppler-util is installed in the container");
-        $I->runShellCommand("docker exec prod_web rpm -qa | grep poppler-util");
+        $I->runShellCommand("docker exec prod_web_ubuntu dpkg -l | grep poppler-util");
         $I->seeInShellOutput('poppler-util');
   }
 
   public function checkLibSSLInstallation(UnitTester $I){
           $I->wantTo("verify openssl is installed in the container");
-          $I->runShellCommand("docker exec prod_web rpm -qa | grep ssl");
+          $I->runShellCommand("docker exec prod_web_ubuntu dpkg -l | grep ssl");
           $I->seeInShellOutput('openssl');
   }
 
     public function checkLibSSHInstallation(UnitTester $I){
             $I->wantTo("verify libssh2 is installed in the container");
-            $I->runShellCommand("docker exec prod_web rpm -qa | grep libssh2");
+            $I->runShellCommand("docker exec prod_web_ubuntu dpkg -l | grep libssh2");
             $I->seeInShellOutput('libssh2');
     }
 
     public function checkZipInstallation(UnitTester $I){
         $I->wantTo("verify zip library is installed in the container");
-        $I->runShellCommand("docker exec prod_web zip -v");
+        $I->runShellCommand("docker exec prod_web_ubuntu zip -v");
         $I->seeInShellOutput('Zip 3');
     }
 
     public function checkUnzipIsInstallation(UnitTester $I){
         $I->wantTo("verify UnZip library is installed in the container");
-        $I->runShellCommand("docker exec prod_web unzip -v");
+        $I->runShellCommand("docker exec prod_web_ubuntu unzip -v");
         $I->seeInShellOutput('UnZip 6');
     }
 
 
     public function checkCurlInstallation(UnitTester $I){
         $I->wantTo("verify curl is installed in the container");
-        $I->runShellCommand("docker exec prod_web curl --version");
+        $I->runShellCommand("docker exec prod_web_ubuntu curl --version");
         $I->seeInShellOutput('curl 7.29.0');
     }
 
     public function checkP7zipInstallation(UnitTester $I){
         $I->wantTo("verify p7zip is installed in the container");
-        $I->runShellCommand("docker exec prod_web rpm -qa | grep p7zip");
+        $I->runShellCommand("docker exec prod_web_ubuntu dpkg -l | grep p7zip");
         $I->seeInShellOutput('p7zip-16');
 
     }
 
     public function checkPHPVersion(UnitTester $I){
         $I->wantTo("verify php 7.4 is installed in the container");
-        $I->runShellCommand("docker exec prod_web php --version");
+        $I->runShellCommand("docker exec prod_web_ubuntu php --version");
         $I->seeInShellOutput('PHP 7.4');
 
     }
@@ -144,7 +143,7 @@ class WebContainerCest
 
     public function checkPHPModules(UnitTester $I){
             $I->wantTo("verify required php modules are available");
-            $I->runShellCommand("docker exec prod_web php -m");
+            $I->runShellCommand("docker exec prod_web_ubuntu php -m");
             $I->seeInShellOutput('apcu');
             $I->seeInShellOutput('bcmath');
             $I->seeInShellOutput('bz2');
