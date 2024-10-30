@@ -48,6 +48,7 @@ fi
 
 # Cleanup downloaded files and build artifacts
 echo "Cleaning up downloaded files and build artifacts..."
+cd /var/www/html/
 rm -rf qpdf-${QPDF_VERSION} qpdf-${QPDF_VERSION}.tar.gz
 
 echo "QPDF installation, configuration, and cleanup complete."
