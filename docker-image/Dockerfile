@@ -161,6 +161,12 @@ RUN dnf makecache
 RUN dnf repolist && \
 dnf -y install MariaDB-client
 
+# Install QPDF Library
+COPY ./scripts/qpdf-install.sh .
+RUN chmod +x qpdf-install.sh
+RUN ./qpdf-install.sh
+RUN rm -rf qpdf-install.sh
+
 # Unregister subscription
 RUN subscription-manager unregister
 
