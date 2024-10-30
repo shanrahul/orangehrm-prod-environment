@@ -180,8 +180,9 @@ tar -xzvf qpdf-11.9.1.tar.gz
 
 #Install QPDF
 RUN cd ~/qpdf-11.9.1 && \
-cmake -S . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo && \
-cmake --build build && \
+cmake -S . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo
+
+RUN cd ~/qpdf-11.9.1 && cmake --build build && \
 cd build && \
 cmake --install
 
