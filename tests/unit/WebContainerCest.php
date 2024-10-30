@@ -110,6 +110,12 @@ class WebContainerCest
         $I->seeInShellOutput('curl');
     }
 
+    public function checkQPDF(UnitTester $I){
+        $I->wantTo("verify qpdf is installed in the container");
+        $I->runShellCommand("docker exec prod_web_rhel qpdf --version");
+        $I->seeInShellOutput('11.9');
+    }
+
     public function checkPHPVersion(UnitTester $I){
         $I->wantTo("verify php 7.4 is installed in the container");
         $I->runShellCommand("docker exec prod_web_rhel php --version");
