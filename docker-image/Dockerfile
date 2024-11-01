@@ -14,7 +14,7 @@ subscription-manager attach --auto
 RUN dnf update -y
 
 # -----------------------------------------------------------------------------
-# Install utility tools and Other Server Dependencies
+# Install utility tools 
 # -----------------------------------------------------------------------------
 RUN  dnf install -y langpacks-en \
 glibc-all-langpacks \
@@ -22,13 +22,7 @@ unzip \
 vim \
 wget \
 make \
-curl \
-ImageMagick \
-openssl-devel \ 
-poppler-utils \
-libreoffice-draw \
-libreoffice-writer \
-urw-base35-fonts-20170801-10.el8.noarch
+curl 
 
 # -----------------------------------------------------------------------------
 # Install Middlewares and modules
@@ -130,6 +124,15 @@ COPY php.ini /etc/php.ini
 # Copy Cert and Private Keys
 COPY httpd/cert/localhost.crt /etc/pki/tls/certs/localhost.crt
 COPY httpd/cert/localhost.key /etc/pki/tls/private/localhost.key
+
+# Install Other Server Dependencies
+RUN dnf install -y ImageMagick \
+openssl-devel \ 
+poppler-utils \
+libreoffice-draw \
+libreoffice-writer \
+urw-base35-fonts-20170801-10.el8.noarch
+
 
 RUN dnf group install -y "Fonts"
 
