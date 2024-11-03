@@ -49,11 +49,11 @@ class WebContainerCest
 
     }
 
-    // public function checkMemcacheServiceIsRunning(UnitTester $I){
-    //     $I->wantTo("verify memcache is up and running in the container");
-    //     $I->runShellCommand("docker exec prod_web_rhel systemctl status memcached");
-    //     $I->seeInShellOutput('active (running)');
-    // }
+    public function checkMemcacheServiceIsRunning(UnitTester $I){
+        $I->wantTo("verify memcache is up and running in the container");
+        $I->runShellCommand("docker exec prod_web_rhel systemctl status memcached");
+        $I->seeInShellOutput('active (running)');
+    }
 
     public function checkImageMagick(UnitTester $I){
         $I->wantTo("verify imagemagick is installed in the container");
@@ -104,11 +104,16 @@ class WebContainerCest
         $I->seeInShellOutput('unzip');
     }
 
-
     public function checkCurlInstallation(UnitTester $I){
         $I->wantTo("verify curl is installed in the container");
         $I->runShellCommand("docker exec prod_web_rhel rpm -qa | grep curl");
         $I->seeInShellOutput('curl');
+    }
+
+    public function checkQPDF(UnitTester $I){
+        $I->wantTo("verify qpdf is installed in the container");
+        $I->runShellCommand("docker exec prod_web_rhel qpdf --version");
+        $I->seeInShellOutput('11.9');
     }
 
     public function checkPHPVersion(UnitTester $I){

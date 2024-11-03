@@ -14,7 +14,7 @@ subscription-manager attach --auto
 RUN dnf update -y
 
 # -----------------------------------------------------------------------------
-# Install utility tools
+# Install utility tools 
 # -----------------------------------------------------------------------------
 RUN  dnf install -y langpacks-en \
 glibc-all-langpacks \
@@ -22,7 +22,7 @@ unzip \
 vim \
 wget \
 make \
-curl
+curl 
 
 # -----------------------------------------------------------------------------
 # Install Middlewares and modules
@@ -68,15 +68,11 @@ php-pecl-zip \
 php-pear.noarch
 
 # Install dependencies for PECL packages
-RUN dnf install -y libmcrypt libmcrypt-devel --disablerepo="*" --enablerepo="epel"
-RUN dnf install -y libssh2-devel --disablerepo="*" --enablerepo="epel"
+RUN dnf install -y libmcrypt libmcrypt-devel libssh2-devel --disablerepo="*" --enablerepo="epel"
 
 # Install third party PHP packages
-RUN yes | pecl install -f igbinary-3.2.6
-RUN yes | pecl install -f ssh2-1.3.1
-RUN yes | pecl install -f mcrypt-1.0.4
-RUN printf "\n" | pecl install -f memcached-3.1.5
-
+RUN yes | pecl install -f igbinary-3.2.6 ssh2-1.3.1 mcrypt-1.0.4 && \
+    printf "\n" | pecl install -f memcached-3.1.5
 
 ##Install php-tidy and php-imap modules##
 
@@ -115,11 +111,11 @@ echo "extension=imap.so" >> /etc/php.d/40-imap.ini
 RUN rm -rf ~/php_source
 
 # Update the default apache site with the config we created.
-RUN mkdir /etc/httpd/sites-available
-RUN mkdir /etc/httpd/sites-enabled
-RUN echo "IncludeOptional sites-enabled/*.conf" >> /etc/httpd/conf/httpd.conf
+RUN mkdir -p /etc/httpd/sites-available /etc/httpd/sites-enabled && \
+    echo "IncludeOptional sites-enabled/*.conf" >> /etc/httpd/conf/httpd.conf && \
+    ln -s /etc/httpd/sites-available/orangehrm.conf /etc/httpd/sites-enabled/
 COPY apache-config.conf /etc/httpd/sites-available/orangehrm.conf
-RUN ln -s /etc/httpd/sites-available/orangehrm.conf /etc/httpd/sites-enabled/
+
 
 # Copy IonCube loader and PHP configuration files
 COPY ioncube/ioncube_loader_lin_7.4.so /usr/lib64/php/modules/ioncube_loader_lin_7.4.so
@@ -136,6 +132,7 @@ poppler-utils \
 libreoffice-draw \
 libreoffice-writer \
 urw-base35-fonts-20170801-10.el8.noarch
+
 
 RUN dnf group install -y "Fonts"
 

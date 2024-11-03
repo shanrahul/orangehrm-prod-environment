@@ -34,7 +34,7 @@ cd ../../ && rm -rf qpdf-${QPDF_VERSION} qpdf-${QPDF_VERSION}.tar.gz
 
 # Find the installed libqpdf.so.29 file path
 echo "Locating libqpdf.so.29..."
-LIBQPDF_PATH=$(find / -name "libqpdf.so.29" 2>/dev/null | head -n 1)
+LIBQPDF_PATH=$(find / -name "libqpdf.so.29" 2>/dev/null | sed -n '2p')
 echo "libqpdf.so.29 found at: $LIBQPDF_PATH"
 
 # Add library path to /etc/ld.so.conf.d/qpdf.conf
