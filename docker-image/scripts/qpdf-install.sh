@@ -28,9 +28,13 @@ echo "Installing QPDF..."
 cd build
 cmake --install .
 
+# Cleanup downloaded files and build artifacts
+echo "Cleaning up downloaded files and build artifacts..."
+cd ../../ && rm -rf qpdf-${QPDF_VERSION} qpdf-${QPDF_VERSION}.tar.gz
+
 # Find the installed libqpdf.so.29 file path
 echo "Locating libqpdf.so.29..."
-LIBQPDF_PATH=$(find /usr/local -name "libqpdf.so.29" 2>/dev/null | head -n 1)
+LIBQPDF_PATH=$(find / -name "libqpdf.so.29" 2>/dev/null | head -n 1)
 echo "libqpdf.so.29 found at: $LIBQPDF_PATH"
 
 # Add library path to /etc/ld.so.conf.d/qpdf.conf
@@ -45,10 +49,5 @@ if [ -n "$LIBQPDF_PATH" ]; then
 else
     echo "libqpdf.so.29 not found; please check if QPDF installed correctly."
 fi
-
-# Cleanup downloaded files and build artifacts
-echo "Cleaning up downloaded files and build artifacts..."
-cd /var/www/html/
-rm -rf qpdf-${QPDF_VERSION} qpdf-${QPDF_VERSION}.tar.gz
 
 echo "QPDF installation, configuration, and cleanup complete."
