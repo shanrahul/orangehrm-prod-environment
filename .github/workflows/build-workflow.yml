@@ -90,7 +90,7 @@ jobs:
           # email body as text
           body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
           # comma-separated string, send email to
-          to: ${{ env.EMAIL_RECIPIENTS }}
+          to: ${{ vars.EMAIL_RECIPIENTS }}
           # from email name
           from: DockHRM Automator
      
