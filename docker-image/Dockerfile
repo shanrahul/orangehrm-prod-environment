@@ -170,6 +170,9 @@ RUN subscription-manager unregister
 #Update Oslon Timezone Database
 RUN pecl install timezonedb
 
+#Generate report on the installed packages
+RUN rpm -qa --queryformat "%{NAME} %{VERSION}-%{RELEASE} %{ARCH} %{INSTALLTIME:date} %{VENDOR}\n" > /var/www/html/installed_packages_detailed_report.txt
+
 # Enable services
 RUN systemctl enable httpd.service
 RUN systemctl enable memcached.service

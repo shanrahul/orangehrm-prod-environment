@@ -76,7 +76,7 @@ jobs:
         run: docker logout
 
       - name: Get the File Names
-        run: ls -la
+        run: ls -la ./html
 
       - name: Send the email notification
         if: always()
