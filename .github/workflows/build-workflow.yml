@@ -42,6 +42,10 @@ jobs:
           docker compose up -d
           docker ps -a
 
+      - name: Copy the report file
+        run: |
+            docker cp prod_web_rhel:/var/installed_packages_detailed_report.txt  installed_packages_detailed_report.txt
+            
       - name: Run unit test suite
         run: |
           sleep 10s

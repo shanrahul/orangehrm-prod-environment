@@ -171,7 +171,7 @@ RUN subscription-manager unregister
 RUN pecl install timezonedb
 
 #Generate report on the installed packages
-RUN rpm -qa --queryformat "%{NAME} %{VERSION}-%{RELEASE} %{ARCH} %{INSTALLTIME:date} %{VENDOR}\n" > /var/www/html/installed_packages_detailed_report.txt
+RUN rpm -qa --queryformat "%{NAME} %{VERSION}-%{RELEASE} %{ARCH} %{INSTALLTIME:date} %{VENDOR}\n" > /var/installed_packages_detailed_report.txt
 
 # Enable services
 RUN systemctl enable httpd.service
