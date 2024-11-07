@@ -45,7 +45,7 @@ jobs:
       - name: Copy the report file
         run: |
             docker cp prod_web_rhel:/var/installed_packages_detailed_report.txt  installed_packages_detailed_report.txt
-            
+
       - name: Run unit test suite
         run: |
           sleep 10s
@@ -100,4 +100,5 @@ jobs:
           to: ${{ vars.EMAIL_RECIPIENTS }}
           # from email name
           from: DockHRM Automator
+          attachments : installed_packages_detailed_report.txt
      
