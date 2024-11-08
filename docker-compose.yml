@@ -1,7 +1,7 @@
 version: '2'
 services:
   web:
-    image: ${DOCKER_HUB_REPO}:${TAG_NAME
+    image: ${DOCKER_HUB_REPO}:${TAG_NAME}
     ports:
       - "443:443"
     volumes:
