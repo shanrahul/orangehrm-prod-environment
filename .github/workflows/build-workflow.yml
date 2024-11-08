@@ -39,14 +39,13 @@ jobs:
           docker build -t ${{ env.DOCKER_HUB_REPO }}:${{ env.LATEST_TAG_NAME }} --build-arg REDHAT_USERNAME=${{ secrets.REDHAT_USERNAME }} --build-arg REDHAT_PASSWORD=${{ secrets.REDHAT_PASSWORD }} docker-image
 
       - name: Get installed php version
-        run: echo "VERSION_TAG_NAME=php-$(docker exec prod_web_rhel php -r 'echo PHP_VERSION;')" >> $GITHUB_ENV
+        run: echo "PHP_VERSION=php-$(docker exec prod_web_rhel php -r 'echo PHP_VERSION;')" >> $GITHUB_ENV
   
       - name: Set TAG_NAME with date
         run: |
           CURRENT_DATE=$(date +'%d%m%y')
-          VERSION_TAG_NAME="${{ env.VERSION_TAG_NAME }}-${CURRENT_DATE}"
-          echo "VERSION_TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
-
+          echo VERSION_TAG_NAME="${{ env.PHP_VERSION }}-${CURRENT_DATE}" >> $GITHUB_ENV
+         
       - name: Spin up the container
         run: |
           docker compose up -d
