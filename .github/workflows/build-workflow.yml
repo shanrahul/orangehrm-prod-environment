@@ -44,9 +44,7 @@ jobs:
 
       - name: Copy the report file
         run: |
-            echo "CONTAINER_NAME=$(docker ps --format '{{.Names}}' | head -n 1)" >> $GITHUB_ENV
-            docker ps --format '{{.Names}}' | head -n 1
-            docker cp ${{ env.CONTAINER_NAME }}:/var/installed_packages_detailed_report.txt  installed_packages_detailed_report.txt
+            docker cp $(docker ps --format '{{.Names}}' | head -n 1):/var/installed_packages_detailed_report.txt  installed_packages_detailed_report.txt
 
       - name: Run unit test suite
         run: |
