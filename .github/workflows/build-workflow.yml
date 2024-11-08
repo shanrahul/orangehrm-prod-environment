@@ -46,7 +46,7 @@ jobs:
 
       - name: Spin up the container
         run: |
-          export DOCKER_HUB_REPO=${{ env.DOCKER_HUB_REPO }} TAG_NAME=${{ env.TAG_NAME }} docker compose up -d
+          export DOCKER_HUB_REPO=${{ env.DOCKER_HUB_REPO }} TAG_NAME=${{ env.TAG_NAME }} && docker compose up -d
           docker ps -a
 
       - name: Copy the report file
