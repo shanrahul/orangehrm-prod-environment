@@ -43,10 +43,10 @@ jobs:
       - name: Build docker image
         run: |
           docker build -t ${{ env.DOCKER_HUB_REPO }}:${{ env.TAG_NAME }} --build-arg REDHAT_USERNAME=${{ secrets.REDHAT_USERNAME }} --build-arg REDHAT_PASSWORD=${{ secrets.REDHAT_PASSWORD }} docker-image
-          docker tag ${{ env.DOCKER_HUB_REPO }}:${{ env.TAG_NAME }} ${{ env.DOCKER_HUB_REPO }}:${{ env.LATEST_TAG_NAME }}
+
       - name: Spin up the container
         run: |
-          docker compose up -d
+          export DOCKER_HUB_REPO=${{ env.DOCKER_HUB_REPO }} TAG_NAME=${{ env.TAG_NAME }} docker compose up -d
           docker ps -a
 
       - name: Copy the report file
