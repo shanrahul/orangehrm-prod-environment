@@ -22,6 +22,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set TAG_NAME with date
+        run: |
+          CURRENT_DATE=$(date +'%m/%Y')
+          TAG_NAME="${{ env.TAG_NAME }}-${CURRENT_DATE}"
+          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+
       - name: Checkout repository
         uses: actions/checkout@v3
   
