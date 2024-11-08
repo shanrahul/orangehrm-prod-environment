@@ -37,18 +37,14 @@ jobs:
       - name: Build docker image
         run: |
           docker build -t ${{ env.DOCKER_HUB_REPO }}:${{ env.LATEST_TAG_NAME }} --build-arg REDHAT_USERNAME=${{ secrets.REDHAT_USERNAME }} --build-arg REDHAT_PASSWORD=${{ secrets.REDHAT_PASSWORD }} docker-image
+
       - name: Spin up the container
         run: |
           docker compose up -d
           docker ps -a
 
-      - name: Spin up the container
-        run: |
-            docker compose up -d
-            docker ps -a
-
       - name: Get installed php version
-        run: echo "PHP_VERSION=php-$(docker exec prod_web_rhel php -r 'echo PHP_VERSION;')" >> $GITHUB_ENV
+        run: echo "PHP_VERSION=php-$(docker exec $(docker ps --format '{{.Names}}' | head -n 1) php -r 'echo PHP_VERSION;')" >> $GITHUB_ENV
   
       - name: Set TAG_NAME with date
         run: |
