@@ -10,8 +10,8 @@ on:
 env:
   REGISTRY: hub.docker.com
   DOCKER_HUB_REPO: "orangehrm/prod-environment-redhat"
-  TAG_NAME: "php-7.4.19"
-  LATEST_TAG_NAME: "php-latest"
+  TAG_NAME: "php-7.4-19"
+  LATEST_TAG_NAME: "php-7.4-latest"
   UPSTREAM_REPO: "orangehrm/orangehrm-prod-environment"
   UPSTREAM_BRANCH: "refs/heads/php-7.4-rhel-8"
 
@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: Set TAG_NAME with date
         run: |
-          CURRENT_DATE=$(date +'%d%m%Y')
+          CURRENT_DATE=$(date +'%d%m%y')
           TAG_NAME="${{ env.TAG_NAME }}${CURRENT_DATE}"
           echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
 
@@ -41,8 +41,9 @@ jobs:
         run: composer install
 
       - name: Build docker image
-        run: docker build -t ${{ env.DOCKER_HUB_REPO }}:${{ env.TAG_NAME }} --build-arg REDHAT_USERNAME=${{ secrets.REDHAT_USERNAME }} --build-arg REDHAT_PASSWORD=${{ secrets.REDHAT_PASSWORD }} docker-image
-
+        run: |
+          docker build -t ${{ env.DOCKER_HUB_REPO }}:${{ env.TAG_NAME }} --build-arg REDHAT_USERNAME=${{ secrets.REDHAT_USERNAME }} --build-arg REDHAT_PASSWORD=${{ secrets.REDHAT_PASSWORD }} docker-image
+          docker tag ${{ env.DOCKER_HUB_REPO }}:${{ env.TAG_NAME }} ${{ env.DOCKER_HUB_REPO }}:${{ env.LATEST_TAG_NAME }}
       - name: Spin up the container
         run: |
           docker compose up -d
