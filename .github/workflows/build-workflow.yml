@@ -40,13 +40,13 @@ jobs:
           docker build -t ${{ env.DOCKER_HUB_REPO }}:${{ env.LATEST_TAG_NAME }} --build-arg REDHAT_USERNAME=${{ secrets.REDHAT_USERNAME }} --build-arg REDHAT_PASSWORD=${{ secrets.REDHAT_PASSWORD }} docker-image
 
       - name: Get installed php version
-        run: echo "VERSION_TAG_NAME=prod-php-$(docker exec $(docker ps --format '{{.Names}}' | head -n 1) -php -r 'echo PHP_VERSION;')" >> $GITHUB_ENV
+        run: echo "VERSION_TAG_NAME=php-$(docker exec $(docker ps --format '{{.Names}}' | head -n 1) php -r 'echo PHP_VERSION;')" >> $GITHUB_ENV
   
       - name: Set TAG_NAME with date
         run: |
           CURRENT_DATE=$(date +'%d%m%y')
-          TAG_NAME="${{ env.VERSION_TAG_NAME }}-${CURRENT_DATE}"
-          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+          VERSION_TAG_NAME="${{ env.VERSION_TAG_NAME }}-${CURRENT_DATE}"
+          echo "VERSION_TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
 
       - name: Spin up the container
         run: |
@@ -64,8 +64,7 @@ jobs:
 
       - name: New image with a version tag & latest tag
         run: |
-          docker tag ${{ env.DOCKER_HUB_REPO }}:${{ env.TAG_NAME }} ${{ env.DOCKER_HUB_REPO }}:${{ env.VERSION_TAG_NAME }}
-          docker tag ${{ env.DOCKER_HUB_REPO }}:${{ env.TAG_NAME }} ${{ env.DOCKER_HUB_REPO }}:${{ env.LATEST_TAG_NAME }}
+          docker tag ${{ env.DOCKER_HUB_REPO }}:${{ env.LATEST_TAG_NAME }} ${{ env.DOCKER_HUB_REPO }}:${{ env.VERSION_TAG_NAME }}
 
       - name: Docker hub login
         if: ${{ github.repository == env.UPSTREAM_REPO && github.ref == env.UPSTREAM_BRANCH }}
