@@ -10,7 +10,6 @@ on:
 env:
   REGISTRY: hub.docker.com
   DOCKER_HUB_REPO: "orangehrm/prod-environment-redhat"
-
   LATEST_TAG_NAME: "php-7.4-latest"
   UPSTREAM_REPO: "orangehrm/orangehrm-prod-environment"
   UPSTREAM_BRANCH: "refs/heads/php-7.4-rhel-8"
@@ -40,7 +39,7 @@ jobs:
           docker build -t ${{ env.DOCKER_HUB_REPO }}:${{ env.LATEST_TAG_NAME }} --build-arg REDHAT_USERNAME=${{ secrets.REDHAT_USERNAME }} --build-arg REDHAT_PASSWORD=${{ secrets.REDHAT_PASSWORD }} docker-image
 
       - name: Get installed php version
-        run: echo "VERSION_TAG_NAME=php-$(docker exec $(docker ps --format '{{.Names}}' | head -n 1) php -r 'echo PHP_VERSION;')" >> $GITHUB_ENV
+        run: echo "VERSION_TAG_NAME=php-$(docker exec prod_web_rhel php -r 'echo PHP_VERSION;')" >> $GITHUB_ENV
   
       - name: Set TAG_NAME with date
         run: |
