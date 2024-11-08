@@ -9,9 +9,9 @@ on:
 
 env:
   REGISTRY: hub.docker.com
-  DOCKER_HUB_REPO: "orangehrm/orangehrm-environment-images"
-  TAG_NAME: "prod-php-7.4.19-rhel-8"
-  LATEST_TAG_NAME: "prod-php-latest-rhel-8"
+  DOCKER_HUB_REPO: "orangehrm/prod-environment-redhat"
+  TAG_NAME: "php-7.4.19"
+  LATEST_TAG_NAME: "php-latest"
   UPSTREAM_REPO: "orangehrm/orangehrm-prod-environment"
   UPSTREAM_BRANCH: "refs/heads/php-7.4-rhel-8"
 
@@ -24,8 +24,8 @@ jobs:
     steps:
       - name: Set TAG_NAME with date
         run: |
-          CURRENT_DATE=$(date +'%m/%Y')
-          TAG_NAME="${{ env.TAG_NAME }}-${CURRENT_DATE}"
+          CURRENT_DATE=$(date +'%d%m%Y')
+          TAG_NAME="${{ env.TAG_NAME }}${CURRENT_DATE}"
           echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
 
       - name: Checkout repository
